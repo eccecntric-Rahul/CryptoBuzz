@@ -1,57 +1,87 @@
-import React, { useState } from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import { AppTheme } from '../types/ThemeTypes';
+import { CustomTheme } from '../types/ThemeTypes';
 import { useNavigation } from '@react-navigation/native';
-import { X } from 'lucide-react-native';
-
-import AlphaText from '../styleguide/CryptoText';
+import CryptoText from '../styleguide/CryptoText';
 import CryptoButton from '../styleguide/CryptoButton';
+import useStore from '../hooks/useStore';
 
-const coins = ['BTC', 'ETH', 'SOL', 'ADA'];
-const categories = ['Market', 'Regulation', 'Tech'];
+const coins = ['BTC', 'ETH', 'SOL', 'ADA', 'BNB', 'XRP', 'DOT', 'LINK'];
+// CryptoPanic API kind values: news, media, tweet, reddit_post, reddit_comment
+const kinds = ['news', 'media', 'tweet', 'reddit_post', 'reddit_comment'];
 
 const FilterScreen = () => {
-  const theme: AppTheme = useTheme();
+  const theme: CustomTheme = useTheme();
   const navigation = useNavigation();
+  const { filters, setFilters, clearFilters } = useStore();
 
-  const [selectedCoins, setSelectedCoins] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCoins, setSelectedCoins] = useState<string[]>(filters.coins || []);
+  const [selectedKinds, setSelectedKinds] = useState<string[]>(filters.kinds || []);
+
+  // Update local state when store filters change
+  useEffect(() => {
+    setSelectedCoins(filters.coins || []);
+    setSelectedKinds(filters.kinds || []);
+  }, [filters]);
 
   const toggleItem = (
     item: string,
     list: string[],
-    setList: (v: string[]) => void
+    setList: (v: string[]) => void,
   ) => {
-    setList(list.includes(item) ? list.filter(i => i !== item) : [...list, item]);
+    setList(
+      list.includes(item) ? list.filter(i => i !== item) : [...list, item],
+    );
   };
 
   const resetFilters = () => {
     setSelectedCoins([]);
-    setSelectedCategories([]);
+    setSelectedKinds([]);
+    clearFilters();
+  };
+
+  const handleSave = () => {
+    // Save filters to store
+    setFilters({
+      coins: selectedCoins,
+      kinds: selectedKinds
+    });
+    navigation.goBack();
+  };
+
+  const getKindDisplayName = (kind: string) => {
+    switch (kind) {
+      case 'news':
+        return 'News';
+      case 'media':
+        return 'Media';
+      case 'tweet':
+        return 'Tweets';
+      case 'reddit_post':
+        return 'Reddit Posts';
+      case 'reddit_comment':
+        return 'Reddit Comments';
+      default:
+        return kind;
+    }
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      {/* Header */}
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <X size={24} color={theme.colors.primary} />
-        </TouchableOpacity>
-        <AlphaText type="H3" style={styles.headerText}>
+        <CryptoText type="H2" style={styles.headerText}>
           Filters
-        </AlphaText>
+        </CryptoText>
         <View style={{ width: 24 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Coins */}
-        <AlphaText type="H4" style={styles.label}>Coins</AlphaText>
+        <CryptoText type="B1" style={styles.label}>
+          Coins
+        </CryptoText>
         <View style={styles.optionsContainer}>
           {coins.map(coin => {
             const selected = selectedCoins.includes(coin);
@@ -64,11 +94,15 @@ const FilterScreen = () => {
                     backgroundColor: selected
                       ? theme.colors.primary
                       : theme.colors.surface,
+                    borderColor: theme.colors.border,
+                    borderWidth: 1,
                   },
                 ]}
-                onPress={() => toggleItem(coin, selectedCoins, setSelectedCoins)}
+                onPress={() =>
+                  toggleItem(coin, selectedCoins, setSelectedCoins)
+                }
               >
-                <AlphaText
+                <CryptoText
                   type="B2"
                   style={{
                     color: selected
@@ -77,33 +111,37 @@ const FilterScreen = () => {
                   }}
                 >
                   {coin}
-                </AlphaText>
+                </CryptoText>
               </TouchableOpacity>
             );
           })}
         </View>
 
-        {/* Categories */}
-        <AlphaText type="H4" style={styles.label}>Categories</AlphaText>
+        {/* Kinds */}
+        <CryptoText type="B1" style={styles.label}>
+          Content Types
+        </CryptoText>
         <View style={styles.optionsContainer}>
-          {categories.map(category => {
-            const selected = selectedCategories.includes(category);
+          {kinds.map(kind => {
+            const selected = selectedKinds.includes(kind);
             return (
               <TouchableOpacity
-                key={category}
+                key={kind}
                 style={[
                   styles.option,
                   {
                     backgroundColor: selected
                       ? theme.colors.primary
                       : theme.colors.surface,
+                    borderColor: theme.colors.border,
+                    borderWidth: 1,
                   },
                 ]}
                 onPress={() =>
-                  toggleItem(category, selectedCategories, setSelectedCategories)
+                  toggleItem(kind, selectedKinds, setSelectedKinds)
                 }
               >
-                <AlphaText
+                <CryptoText
                   type="B2"
                   style={{
                     color: selected
@@ -111,33 +149,33 @@ const FilterScreen = () => {
                       : theme.colors.onSurface,
                   }}
                 >
-                  {category}
-                </AlphaText>
+                  {getKindDisplayName(kind)}
+                </CryptoText>
               </TouchableOpacity>
             );
           })}
         </View>
 
         {/* Buttons */}
-        <View style={styles.buttonRow}>
-          <CryptoButton
-            title="Save"
-            variant="contained"
-            color="primary"
-            size="medium"
-            onPress={() => navigation.goBack()}
-            style={styles.button}
-          />
-          <CryptoButton
-            title="Reset"
-            variant="outlined"
-            color="default"
-            size="medium"
-            onPress={resetFilters}
-            style={styles.button}
-          />
-        </View>
       </ScrollView>
+      <View style={styles.buttonRow}>
+        <CryptoButton
+          title="Reset"
+          variant="outlined"
+          color="default"
+          size="medium"
+          onPress={resetFilters}
+          style={styles.button}
+        />
+        <CryptoButton
+          title="Save"
+          variant="contained"
+          color="primary"
+          size="medium"
+          onPress={handleSave}
+          style={styles.button}
+        />
+      </View>
     </View>
   );
 };
@@ -182,6 +220,9 @@ const styles = StyleSheet.create({
     marginTop: 32,
     gap: 16,
     justifyContent: 'center',
+    position: 'absolute',
+    bottom: 16,
+    left: 16,
   },
   button: {
     flex: 1,

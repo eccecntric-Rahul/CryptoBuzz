@@ -1,8 +1,46 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { fetchCryptoNews } from '../api/newsApi';
 
-const useStore = create(
+interface NewsItem {
+  id: number;
+  title: string;
+  published_at: string;
+  metadata?: {
+    title: string;
+    description: string;
+  };
+  currencies?: Array<{ code: string }>;
+}
+
+interface Filters {
+  coins: string[];
+  kinds: string[];
+}
+
+interface StoreState {
+  news: NewsItem[];
+  loading: boolean;
+  error: string | null;
+  filters: Filters;
+  lastUpdated: string | null;
+  
+  // Actions
+  setNews: (news: NewsItem[]) => void;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  setFilters: (filters: Filters) => void;
+  clearFilters: () => void;
+  
+  // News getter - all filtering is handled by the API
+  getFilteredNews: () => NewsItem[];
+  
+  // Fetch news with current filters
+  fetchNewsWithFilters: () => Promise<void>;
+}
+
+const useStore = create<StoreState>()(
   persist(
     (set, get) => ({
       news: [],
@@ -10,7 +48,7 @@ const useStore = create(
       error: null,
       filters: {
         coins: [],
-        categories: []
+        kinds: []
       },
       lastUpdated: null,
       
@@ -19,27 +57,25 @@ const useStore = create(
       setLoading: (loading) => set({ loading }),
       setError: (error) => set({ error }),
       setFilters: (filters) => set({ filters }),
-      clearFilters: () => set({ filters: { coins: [], categories: [] } }),
+      clearFilters: () => set({ filters: { coins: [], kinds: [] } }),
       
-      // Filtered news getter
+      // News getter - all filtering is handled by the API
       getFilteredNews: () => {
-        const { news, filters } = get();
-        if (filters.coins.length === 0 && filters.categories.length === 0) {
-          return news;
-        }
+        const { news } = get();
+        return news; // Return all news as filtering is done by the API
+      },
+      
+      // Fetch news with current filters
+      fetchNewsWithFilters: async () => {
+        const { filters } = get();
+        set({ loading: true, error: null });
         
-        return news.filter(item => {
-          const matchesCoin = filters.coins.length === 0 || 
-            (item.currencies && item.currencies.some(c => filters.coins.includes(c.code)));
-            
-          const matchesCategory = filters.categories.length === 0 ||
-            (item.metadata && filters.categories.some(cat => 
-              item.metadata.title.toLowerCase().includes(cat.toLowerCase()) ||
-              item.metadata.description.toLowerCase().includes(cat.toLowerCase())
-            ));
-            
-          return matchesCoin && matchesCategory;
-        });
+        try {
+          const newsData = await fetchCryptoNews(filters);
+          set({ news: newsData, lastUpdated: new Date().toISOString(), loading: false });
+        } catch (error) {
+          set({ error: error instanceof Error ? error.message : 'Failed to fetch news', loading: false });
+        }
       }
     }),
     {

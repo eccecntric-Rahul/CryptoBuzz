@@ -5,9 +5,10 @@ import AlphaText from '../styleguide/CryptoText';
 import { useThemeStore } from '../redux/useThemeStore';
 import Toggle from '../styleguide/CryptoToggle';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { Sun , MoonStar } from 'lucide-react-native';
+import { CustomTheme } from '../types/ThemeTypes';
 const Header = () => {
-  const theme = useTheme();
+  const theme:CustomTheme = useTheme();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const { toggleTheme } = useThemeStore();
 
@@ -24,7 +25,6 @@ const Header = () => {
             borderBottomWidth: 2,
             borderBottomColor: theme.colors.border,
             shadowColor: theme.colors.border,
-            // height:90
           },
         ]}
       >
@@ -44,7 +44,9 @@ const Header = () => {
             justifyContent: 'flex-end',
           }}
         >
+          <Sun size={20} color={theme.colors.muted} style={{marginRight:8}} />
           <Toggle isEnabled={isEnabled} onChange={handleDarkToggle} />
+          <MoonStar size={20} color={theme.colors.muted} style={{marginLeft:8}} />
         </View>
       </View>
     </SafeAreaView>
