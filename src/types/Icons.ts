@@ -1,0 +1,3 @@
+// types/Icons.ts
+type IconType = "HOME" |"PROFILE"|"FILTERS"|"ERROR-ICON" | "LEFT-ANGLE-ARROW" | "NOTIFICATION" | "SETTINGS" | "CROSS" | "DARK-MODE"| "ERROR-ICON" | "INFO-ICON" | "SUCCESS-ICON" | "WARNING-ICON" | "LOADING-ICON" | "INFO-ICON";
+export default IconType;
