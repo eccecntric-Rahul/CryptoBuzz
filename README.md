@@ -1,97 +1,209 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# CryptoBuzz 📱
 
-# Getting Started
+A modern React Native mobile application for staying updated with the latest cryptocurrency news and market information. CryptoBuzz provides real-time crypto news, filtering capabilities, and a sleek user interface designed for crypto enthusiasts.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🚀 Features
 
-## Step 1: Start Metro
+- **Real-time Crypto News**: Get the latest cryptocurrency news from reliable sources
+- **Smart Filtering**: Filter news by specific cryptocurrencies and news types
+- **Offline Support**: View cached news when offline with last updated timestamps
+- **Modern UI/UX**: Clean, intuitive interface with dark/light theme support
+- **Responsive Design**: Optimized for both iOS and Android platforms
+- **News Details**: Full article viewing with sharing capabilities
+- **Network Status**: Real-time network connectivity monitoring
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## 🛠 Tech Stack
 
-```sh
-# Using npm
-npm start
+- **Framework**: React Native 0.80.0
+- **Language**: TypeScript
+- **Navigation**: React Navigation v7
+- **State Management**: Zustand with MMKV storage
+- **Data Fetching**: React Query (TanStack Query)
+- **UI Components**: React Native Paper
+- **Icons**: Lucide React Native
+- **Network**: Axios for API calls
+- **Storage**: MMKV for fast local storage
+- **Testing**: Jest & React Native Testing Library
 
-# OR using Yarn
-yarn start
+## 📋 Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- Node.js (>= 18)
+- Yarn package manager
+- React Native CLI
+- Android Studio (for Android development)
+- Xcode (for iOS development, macOS only)
+- CocoaPods (for iOS dependencies)
+
+## 🚀 Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd CryptoBuzz
+   ```
+
+2. **Install dependencies**
+   ```bash
+   yarn install
+   ```
+
+3. **iOS Setup** (macOS only)
+   ```bash
+   cd ios
+   pod install
+   cd ..
+   ```
+
+4. **Start Metro bundler**
+   ```bash
+   yarn start
+   ```
+
+5. **Run the application**
+
+   **For iOS:**
+   ```bash
+   yarn ios
+   ```
+
+   **For Android:**
+   ```bash
+   yarn android
+   ```
+
+## 🏗 Project Structure
+
+```
+src/
+├── api/                 # API services and configurations
+├── components/          # Reusable UI components
+├── constants/           # App constants and configuration
+├── hooks/              # Custom React hooks
+├── icons/              # Icon components
+├── images/             # Static images and assets
+├── navigation/         # Navigation configuration
+├── redux/              # State management (Zustand stores)
+├── screens/            # Screen components
+├── styleguide/         # Design system components
+├── theme/              # Theme configuration and tokens
+├── types/              # TypeScript type definitions
+└── utils/              # Utility functions
 ```
 
-## Step 2: Build and run your app
+## 🎨 Design System
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+CryptoBuzz uses a comprehensive design system with:
 
-### Android
+- **Typography**: Custom font family (Plus Jakarta Sans)
+- **Colors**: Consistent color tokens for theming
+- **Components**: Reusable UI components (CryptoText, CryptoButton, etc.)
+- **Themes**: Dark and light theme support
+- **Shadows**: Consistent elevation and shadow system
 
-```sh
-# Using npm
-npm run android
+## 🔧 Configuration
 
-# OR using Yarn
-yarn android
+### Environment Variables
+
+The app uses the CryptoPanic API for news data. The API key is currently hardcoded in the `newsApi.ts` file. For production, consider moving this to environment variables.
+
+### API Configuration
+
+- **Base URL**: `https://cryptopanic.com/api/developer/v2/posts/`
+- **Authentication**: Token-based authentication
+- **Caching**: 5-minute stale time, 15-minute cache time
+
+## 📱 Available Scripts
+
+- `yarn start` - Start Metro bundler
+- `yarn ios` - Run on iOS simulator
+- `yarn android` - Run on Android emulator
+- `yarn test` - Run test suite
+- `yarn lint` - Run ESLint
+
+## 🧪 Testing
+
+The project includes a comprehensive test suite:
+
+```bash
+yarn test
 ```
 
-### iOS
+Tests are organized in the `__tests__` directory and cover:
+- Component testing
+- Hook testing
+- API testing
+- Navigation testing
+- Redux store testing
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+## 📦 Dependencies
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### Core Dependencies
+- React Native 0.80.0
+- React Navigation v7
+- Zustand (state management)
+- React Query (data fetching)
+- React Native Paper (UI components)
 
-```sh
-bundle install
-```
+### Key Libraries
+- `@gorhom/bottom-sheet` - Bottom sheet components
+- `react-native-mmkv` - Fast storage
+- `react-native-reanimated` - Animations
+- `react-native-share` - Social sharing
+- `react-native-toast-message` - Toast notifications
 
-Then, and every time you update your native dependencies, run:
+## 🔄 State Management
 
-```sh
-bundle exec pod install
-```
+The app uses Zustand for state management with MMKV storage for persistence:
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+- **News Store**: Manages crypto news data and filters
+- **Theme Store**: Handles theme switching and preferences
+- **Offline Support**: Caches data for offline viewing
 
-```sh
-# Using npm
-npm run ios
+## 🌐 API Integration
 
-# OR using Yarn
-yarn ios
-```
+The app integrates with the CryptoPanic API to fetch cryptocurrency news:
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+- Real-time news updates
+- Filtering by cryptocurrencies
+- Filtering by news types
+- Error handling and retry logic
+- Offline caching
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 📱 Platform Support
 
-## Step 3: Modify your app
+- **iOS**: iOS 12.0+
+- **Android**: API level 21+ (Android 5.0+)
 
-Now that you have successfully run the app, let's make changes!
+## 🤝 Contributing
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 📄 License
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Congratulations! :tada:
+## 🙏 Acknowledgments
 
-You've successfully run and modified your React Native App. :partying_face:
+- [CryptoPanic](https://cryptopanic.com/) for providing the news API
+- [React Native](https://reactnative.dev/) community
+- [React Navigation](https://reactnavigation.org/) team
+- [Zustand](https://github.com/pmndrs/zustand) for state management
 
-### Now what?
+## 📞 Support
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+If you encounter any issues or have questions, please:
 
-# Troubleshooting
+1. Check the existing issues
+2. Create a new issue with detailed information
+3. Include device/OS information and steps to reproduce
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+---
 
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Made with ❤️ for the crypto community**
