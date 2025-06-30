@@ -49,9 +49,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSUserNotificationUsageDescription</key>
-	<string>This app uses notifications to keep you updated on crypto news and alerts.</string>
-	<key>NSRemoteNotificationUsageDescription</key>
-	<string>This app uses remote notifications to keep you updated on crypto news and alerts.</string>
 </dict>
 </plist>

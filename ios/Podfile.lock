@@ -2302,8 +2302,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNCPushNotificationIOS (1.11.0):
-    - React-Core
   - RNGestureHandler (2.26.0):
     - boost
     - DoubleConversion
@@ -2713,7 +2711,6 @@ DEPENDENCIES:
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
-  - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -2882,8 +2879,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
-  RNCPushNotificationIOS:
-    :path: "../node_modules/@react-native-community/push-notification-ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -2975,7 +2970,6 @@ SPEC CHECKSUMS:
   ReactCodegen: 304f881dea867b659e4ba479608ec06f8117e0c5
   ReactCommon: 658874decaf8c4fd76cfa3a878b94a869db85b1c
   RNCAsyncStorage: 767abb068db6ad28b5f59a129fbc9fab18b377e2
-  RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
   RNGestureHandler: 9d04ec6e1379b595222c2467f5e8d1c44157fcc9
   RNReanimated: 2010262133feb53009f16faaa404042eed7da018
   RNScreens: 45a4564413205e2a1695d40bbc0297f6eefc9b74
@@ -2984,6 +2978,6 @@ SPEC CHECKSUMS:
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 395b5d614cd7cbbfd76b05d01bd67230a6ad004e
 
-PODFILE CHECKSUM: bbe3ab243cbda3ae19f867f75dfd1a50472a8142
+PODFILE CHECKSUM: 2e8a5fc53c07ab7d6fab2d1eccd00ed248082af1
 
 COCOAPODS: 1.15.2

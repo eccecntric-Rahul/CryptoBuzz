@@ -17,7 +17,6 @@ export type MainStackParamList = {
   BottomTabs: undefined;
   SettingsScreen:undefined;
   EditProfileScreen:undefined;
-  NotificationTestScreen: undefined;
   // Add other main stack screens here
 };
 
@@ -36,3 +35,4 @@ export type MainScreenProps<T extends keyof MainStackParamList> = NativeStackScr
   MainStackParamList,
   T
 >;
+

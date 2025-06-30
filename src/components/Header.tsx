@@ -5,15 +5,13 @@ import AlphaText from '../styleguide/CryptoText';
 import { useThemeStore } from '../redux/useThemeStore';
 import Toggle from '../styleguide/CryptoToggle';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Sun , MoonStar, Bell } from 'lucide-react-native';
+import { Sun , MoonStar } from 'lucide-react-native';
 import { CustomTheme } from '../types/ThemeTypes';
-import { useNavigation } from '@react-navigation/native';
-
 const Header = () => {
   const theme:CustomTheme = useTheme();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const { toggleTheme } = useThemeStore();
-  const navigation = useNavigation();
+
   const handleDarkToggle = () => {
     setIsEnabled(prev => !prev);
     toggleTheme();
@@ -46,7 +44,6 @@ const Header = () => {
             justifyContent: 'flex-end',
           }}
         >
-          <Bell size={20} color={theme.colors.muted} style={{marginRight:16}} onPress={()=>navigation.navigate('NotificationTestScreen')}/>
           <Sun size={20} color={theme.colors.muted} style={{marginRight:8}} />
           <Toggle isEnabled={isEnabled} onChange={handleDarkToggle} />
           <MoonStar size={20} color={theme.colors.muted} style={{marginLeft:8}} />
