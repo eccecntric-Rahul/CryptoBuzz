@@ -28,10 +28,10 @@ const HomeScreen = ({ navigation }: any) => {
 
   const [isConnected, setIsConnected] = useState(true);
   const theme: CustomTheme = useTheme();
-  
+
   const { refetch } = useQuery(
-    ['cryptoNews', filters], 
-    () => fetchCryptoNews(filters), 
+    ['cryptoNews', filters],
+    () => fetchCryptoNews(filters),
     {
       enabled: false, // Disable automatic fetching
       onSuccess: data => {
@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }: any) => {
       onError: (err: any) => {
         setError(err.message || 'Failed to fetch news');
       },
-    }
+    },
   );
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }: any) => {
 
     return () => unsubscribe();
   }, []);
-  console.log("news",news);
+  console.log('news', news);
   // Refetch when filters change
   useEffect(() => {
     if (isConnected && news.length > 0) {
@@ -86,20 +86,22 @@ const HomeScreen = ({ navigation }: any) => {
     >
       <View style={styles.newsContent}>
         <View style={styles.newsHeader}>
-          <View style={styles.newsSourceContainer}>
-            
-          </View>
+          <View style={styles.newsSourceContainer}></View>
           <CryptoText type="B1" numberOfLines={2} style={styles.newsTitle}>
             {item.title}
           </CryptoText>
         </View>
-        
+
         <View style={styles.newsBody}>
-          <CryptoText type="B3" numberOfLines={3} style={styles.newsDescription}>
+          <CryptoText
+            type="B3"
+            numberOfLines={3}
+            style={styles.newsDescription}
+          >
             {item.metadata?.description || 'No description available'}
           </CryptoText>
         </View>
-        
+
         <View style={styles.newsFooter}>
           <View style={styles.newsMeta}>
             <CryptoText type="B4" style={styles.newsDate}>
@@ -107,21 +109,46 @@ const HomeScreen = ({ navigation }: any) => {
                 month: 'short',
                 day: 'numeric',
                 hour: '2-digit',
-                minute: '2-digit'
+                minute: '2-digit',
               })}
             </CryptoText>
             {item.currencies && item.currencies.length > 0 && (
               <View style={styles.currencyTags}>
-                {item.currencies.slice(0, 3).map((currency: any, index: number) => (
-                  <View key={index} style={[styles.currencyTag, { backgroundColor: theme.colors.primary }]}>
-                    <CryptoText type="B4" style={[styles.currencyTagText, { color: theme.colors.onSurface }]}>
-                      {currency.code}
-                    </CryptoText>
-                  </View>
-                ))}
+                {item.currencies
+                  .slice(0, 3)
+                  .map((currency: any, index: number) => (
+                    <View
+                      key={index}
+                      style={[
+                        styles.currencyTag,
+                        { backgroundColor: theme.colors.primary },
+                      ]}
+                    >
+                      <CryptoText
+                        type="B4"
+                        style={[
+                          styles.currencyTagText,
+                          { color: theme.colors.onSurface },
+                        ]}
+                      >
+                        {currency.code}
+                      </CryptoText>
+                    </View>
+                  ))}
                 {item.currencies.length > 3 && (
-                  <View style={[styles.currencyTag, { backgroundColor: theme.colors.muted }]}>
-                    <CryptoText type="B4" style={[styles.currencyTagText, { color: theme.colors.onSurface }]}>
+                  <View
+                    style={[
+                      styles.currencyTag,
+                      { backgroundColor: theme.colors.muted },
+                    ]}
+                  >
+                    <CryptoText
+                      type="B4"
+                      style={[
+                        styles.currencyTagText,
+                        { color: theme.colors.onSurface },
+                      ]}
+                    >
                       +{item.currencies.length - 3}
                     </CryptoText>
                   </View>
@@ -129,8 +156,16 @@ const HomeScreen = ({ navigation }: any) => {
               </View>
             )}
           </View>
-          <View style={[styles.readMoreIndicator, { backgroundColor: theme.colors.primary }]}>
-            <CryptoText type="B4" style={[styles.readMoreText, { color: theme.colors.onSurface }]}>
+          <View
+            style={[
+              styles.readMoreIndicator,
+              { backgroundColor: theme.colors.primary },
+            ]}
+          >
+            <CryptoText
+              type="B4"
+              style={[styles.readMoreText, { color: theme.colors.onSurface }]}
+            >
               Read
             </CryptoText>
           </View>
@@ -164,8 +199,18 @@ const HomeScreen = ({ navigation }: any) => {
 
       {/* Simple Filter Indicator */}
       {(filters?.coins?.length > 0 || filters?.kinds?.length > 0) && (
-        <View style={[styles.filterIndicator, { backgroundColor: theme.colors.primary }]}>
-          <CryptoText style={[styles.filterIndicatorText, { color: theme.colors.onSurface }]}>
+        <View
+          style={[
+            styles.filterIndicator,
+            { backgroundColor: theme.colors.primary },
+          ]}
+        >
+          <CryptoText
+            style={[
+              styles.filterIndicatorText,
+              { color: theme.colors.onSurface },
+            ]}
+          >
             🔍 Filters Applied
           </CryptoText>
         </View>
@@ -181,7 +226,7 @@ const HomeScreen = ({ navigation }: any) => {
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
             {loading ? (
-              <ActivityIndicator size="large" color={theme.colors.primary}  />
+              <ActivityIndicator size="large" color={theme.colors.primary} />
             ) : (
               <CryptoText type="H1">
                 {error || 'No articles found. Try adjusting your filters.'}
