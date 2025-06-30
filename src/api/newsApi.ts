@@ -20,7 +20,7 @@ interface FilterParams {
 export const fetchCryptoNews = async (filters?: FilterParams) => {
   try {
     const params: any = {
-      auth_token: '8aa6636771730d1c5dbbdc0623c9c367f1d9b9b3',
+      auth_token: '646765b83ff6169ba989cb0820482f705da7c0d3',
       public: true
     };
 
