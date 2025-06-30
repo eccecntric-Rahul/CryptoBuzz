@@ -116,4 +116,12 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation 'com.google.firebase:firebase-messaging:23.4.1'
 }
+
+// Exclude legacy support-compat from all configurations to fix duplicate class error
+configurations.all {
+    exclude group: 'com.android.support', module: 'support-compat'
+}
+
+apply plugin: 'com.google.gms.google-services'

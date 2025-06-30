@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import { StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import NewsDetailScreen from '../screens/NewsDetailScreen';
+import NotificationTestScreen from '../screens/NotificationTestScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,11 @@ const MainStack = () => {
         name="NewsDetailScreen"
         component={NewsDetailScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NotificationTestScreen"
+        component={NotificationTestScreen}
+        options={{ title: 'Notification Test', headerShown: false }}
       />
     </Stack.Navigator>
   );

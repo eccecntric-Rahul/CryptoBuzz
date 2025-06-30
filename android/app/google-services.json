@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "536777097985",
+    "project_id": "cryptobuzz-a940d",
+    "storage_bucket": "cryptobuzz-a940d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536777097985:android:dae5d44ff595a7e37ad100",
+        "android_client_info": {
+          "package_name": "com.cryptobuzz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6xZNT_xzttvk5f315nZ9-cZM5FMgncHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
