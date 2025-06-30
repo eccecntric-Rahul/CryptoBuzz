@@ -269,8 +269,11 @@ const ProfileScreen = () => {
                   Employee of the Month
                 </CryptoText>
               </View>
-              <CryptoText type="B3" style={[styles.experienceText, { color: theme.colors.onSurface }]}>
-                March 2025, April 2024 — For revamping the entire app UI at Planify Capital Ltd.
+              <CryptoText type="B3"  style={[styles.experienceText, { color: theme.colors.onSurface ,width:"100%"}]}>
+                March 2025, April 2024 — For revamping the entire app UI at 
+              </CryptoText>
+              <CryptoText type="B3"  style={[styles.experienceText, { color: theme.colors.onSurface ,width:"100%"}]}>
+                Planify Capital Ltd.
               </CryptoText>
             </View>
 
@@ -400,5 +403,6 @@ const styles = StyleSheet.create({
   experienceText: {
     lineHeight: 24,
     textAlign: 'justify',
+    width: "100%",
   },
 });
